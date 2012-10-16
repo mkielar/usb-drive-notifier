@@ -9,9 +9,9 @@ Notifier notifier = new Notifier();
 notifier.addListener(new USBDriveInfoListener() {
 
     @Override
-	  public void onEvent(USBDriveInfo info) {
-		    System.out.println(info);
-	  }
+	public void onEvent(USBDriveInfo info) {
+	    System.out.println(info);
+	}
 	
 });
 
