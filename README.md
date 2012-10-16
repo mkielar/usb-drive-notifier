@@ -15,5 +15,5 @@ notifier.addListener(new USBDriveInfoListener() {
 	
 });
 
-notifier.startListen();
+notifier.startListening();
 ```

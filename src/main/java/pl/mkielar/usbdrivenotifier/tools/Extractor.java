@@ -3,6 +3,12 @@ package pl.mkielar.usbdrivenotifier.tools;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Resource extractor interface.
+ * 
+ * @author marcin.kielar
+ *
+ */
 public interface Extractor {
 	
 	/**
