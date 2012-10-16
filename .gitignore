@@ -1,1 +1,15 @@
+# Maven target directory
 target/
+
+# Java 
+*.class
+
+# Java archives
+*.jar
+*.war
+*.ear
+
+# Eclipse
+.settings/
+.classpath
+.project
