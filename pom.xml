@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.mkielar</groupId>
 	<artifactId>usb-drive-notifier</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>usb-drive-notifier</name>
 	<description>USB drive notifier</description>
 
@@ -19,4 +19,16 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>mkielar-maven-repository</id>
+			<url>file:///${basedir}/../mkielar-maven-repository/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>mkielar-maven-repository</id>
+			<url>file:///${basedir}/../mkielar-maven-repository/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 </project>

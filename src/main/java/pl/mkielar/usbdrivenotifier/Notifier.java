@@ -7,11 +7,43 @@ import java.util.List;
 
 import pl.mkielar.usbdrivenotifier.model.USBDriveInfo;
 import pl.mkielar.usbdrivenotifier.powershell.PowershellAPI;
-import pl.mkielar.usbdrivenotifier.tools.ProcessTools;
+import pl.mkielar.usbdrivenotifier.tools.IOTools;
 import pl.mkielar.usbdrivenotifier.tools.ServiceLookup;
 
+/**
+ * USB Drive Notifier.
+ * 
+ * This class is an entry-point of this little framework.
+ * 
+ * There are two main usages:
+ * 
+ * <ol>
+ * <li>Getting currently attached removable drives - with
+ * {@link #getCurrentDrives()},</li>
+ * <li>Starting asynchronous listener, that will notify the callback object when
+ * removable drive event happen - with {@link #startListening()}.</li>
+ * </ol>
+ * 
+ * In the first case, the {@link API} provider is called every time the
+ * {@link #getCurrentDrives()} method is called.
+ * 
+ * In the second case, a background thread / process / worker is started that
+ * listens to system events and transforms them to callback invocations. In this
+ * case, there are two ways to stop the listener:
+ * 
+ * <ol>
+ * <li>by calling {@link #stopListening()} on the {@code Notifier} instance,</li>
+ * <li>by creating the {@code Notifier} with an {@link #Notifier(boolean)
+ * alternative constructor} which causes adding a
+ * {@link Runtime#addShutdownHook(Thread)} shutdown hook to the JVM. 
+ * </ol>
+ * 
+ * @author marcin
+ * 
+ */
 public class Notifier {
-	
+
+	/** Notifier state. */
 	private static enum State {
 		NEW,
 		STARTED,
@@ -36,13 +68,14 @@ public class Notifier {
 		}
 	};
 	
+	/** Shutdown hook. */
 	private Thread shutdownHook = null;
 	
 	/** State of the notifier. */
 	private State state = State.NEW;
 	
 	/** Process listening for USB drive events. */
-	private Process listenProcess;
+	private Listener listenProcess;
 	
 	/** Shoud shutdown hook be added in order to destroy the process if still running. */
 	private boolean addShutdownHook;
@@ -79,7 +112,7 @@ public class Notifier {
 		return api.getCurrentDrives();
 	}
 
-	public synchronized void startListen() throws IOException {
+	public synchronized void startListening() throws IOException {
 		
 		try {
 			
@@ -102,11 +135,11 @@ public class Notifier {
 		}
 	}
 	
-	public synchronized void stopListen() {
+	public synchronized void stopListening() {
 		
 		try {
 			
-			ProcessTools.destroyQuietly(listenProcess);
+			IOTools.closeQuietly(listenProcess);
 			
 		} finally {
 			
@@ -122,7 +155,7 @@ public class Notifier {
 		this.shutdownHook = new Thread(new Runnable() {
 		
 			public void run() {
-				stopListen();
+				stopListening();
 			}
 			
 		});
@@ -146,7 +179,7 @@ public class Notifier {
 			}
 			
 		});
-		notifier.startListen();
+		notifier.startListening();
 		
 		System.out.println("Notifier started");
 //		new Thread(new Runnable() {

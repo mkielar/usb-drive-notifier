@@ -2,16 +2,22 @@ package pl.mkielar.usbdrivenotifier.tools;
 
 import java.util.ServiceLoader;
 
+/**
+ * Utility class for service lookup handling default implementations.
+ * 
+ * @author marcin.kielar
+ *
+ */
 public class ServiceLookup {
 
 	/**
 	 * Looks up an implementation of given interface
 	 * 
 	 * @param clazz
-	 *            class to lookup implemetation for
+	 *            class to lookup implementation for
 	 * @param defaultImplementation
 	 *            default implementation of the interface
-	 * @return implenetation
+	 * @return implementation
 	 */
 	public static <T> T lookup(Class<T> clazz, Class<? extends T> defaultImplementation) {
 		ServiceLoader<T> loader = ServiceLoader.load(clazz);

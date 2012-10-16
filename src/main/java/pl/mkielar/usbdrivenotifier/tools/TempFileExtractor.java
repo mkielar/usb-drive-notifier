@@ -7,6 +7,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
+/**
+ * Default {@link Extractor} implementation. This class uses a
+ * {@link Files#createTempDirectory(String, java.nio.file.attribute.FileAttribute...)}
+ * to create a temporary folder into which resources are extracted.
+ * 
+ * @author marcin.kielar
+ * 
+ */
 public class TempFileExtractor implements Extractor {
 
 	@Override
@@ -36,7 +44,14 @@ public class TempFileExtractor implements Extractor {
 
 		return root;
 	}
-		
+
+	/**
+	 * Creates destiation directory.
+	 * 
+	 * @return root directory for extracted resources
+	 * @throws IOException
+	 *             when an IO error occurs accessing temporary directory
+	 */
 	private File createDestinationDirectory() throws IOException {
 		
 		File tempDir = Files.createTempDirectory("usbdrivenotifier").toFile();
