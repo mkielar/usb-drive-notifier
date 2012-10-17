@@ -8,8 +8,8 @@ Set-Variable C_DELETION_STATUS -Option Constant -Value "DELETION"
 
 Set-Variable C_NON_EXISTENT_EVENT_SI -Option Constant -Value "NOT_EXISTING-22190001293"
 
-# Funkcja tworzy obiekt MessageData
-# $Status status powiadomienia
+# Creates a MetaData object
+# $Status - Notification status
 Function Create-MessageData($Status) {
 
 	$MessageData = New-Object PSObject -Property @{
@@ -19,9 +19,9 @@ Function Create-MessageData($Status) {
 	$MessageData
 }
 
-# Funkcja wypisuje INFO dla podanego dysku i danych
-# $LogicalDisk - dysk lokalny
-# $MessageData - dane wiadomoœci
+# Outputs MetaData for given drive
+# $LogicalDisk - WMI object representing logical disk
+# $MessageData - Drive metadata
 Function Global:WriteInfo($LogicalDisk, $MessageData) {
 
 	if ($LogicalDisk -ne $Null) {
@@ -39,8 +39,8 @@ Function Global:WriteInfo($LogicalDisk, $MessageData) {
 	}
 }
 
-# Funkcja wypisuje INFO dla wszystkich aktualnie dostêpnych
-# $MessageData dane wiadomoœci
+# Outputs MetaData for all currently attached drives
+# $MessageData - Drive metadata
 Function WriteInfoAll($MessageData) {
 	
 	$LogicalDisks = @(Get-WmiObject -Query "Select * From Win32_LogicalDisk Where DriveType='2'")
@@ -50,23 +50,21 @@ Function WriteInfoAll($MessageData) {
 	}
 }
 
+# Unregisters Event-Listener
+# $SourceIdentifier - Source identifier given when registering
+Function Unregister($SourceIdentifier) {
 
-
-# Funkcja wyrejestrowuje dany Event-Listener
-# $si - SourceIdentifier podany przy wywo³aniu RegisterWMIEvent
-Function Unregister($si) {
-
-	$ExistingSubscriber = Get-EventSubscriber -SourceIdentifier $si -WarningAction:SilentlyContinue -ErrorAction:SilentlyContinue
+	$ExistingSubscriber = Get-EventSubscriber -SourceIdentifier $SourceIdentifier -WarningAction:SilentlyContinue -ErrorAction:SilentlyContinue
 	If ($ExistingSubscriber -ne $Null) {
 		$ExistingSubscriber | Unregister-Event
 	}
 
 }
 
-# Funckja rejestruje Event-Listener o danym identyfikatorze, dla przekazanego zapytania
-# $si - SourceIdentifier 
-# $query - Zapytanie
-# $prefix - Prefix do wyrzucania na konsolê
+# Registers an Event-Listener with given identifier and query
+# $SourceIdentifier - Source Identifier 
+# $query - WMI query
+# $prefix - Prefix fot console output
 Function Register($SourceIdentifier, $Query, $Status) {
 	
 	$MessageData = Create-MessageData($Status)
