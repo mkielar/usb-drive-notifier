@@ -11,8 +11,8 @@ public class USBDriveInfo {
 	/** Drive status. */
 	private final USBDriveStatus status;
 	
-	/** Drive letter. */
-	private final String driveLetter;
+	/** Mount point / drive letter. */
+	private final String mountPoint;
 	
 	/** Drive label. */
 	private final String label;
@@ -28,8 +28,8 @@ public class USBDriveInfo {
 	 * 
 	 * @param status
 	 *            drive status
-	 * @param driveLetter
-	 *            drive letter
+	 * @param mountPoint
+	 *            mount point / drive letter
 	 * @param label
 	 *            drive label
 	 * @param name
@@ -37,9 +37,9 @@ public class USBDriveInfo {
 	 * @param serialNumber
 	 *            drive serial number
 	 */
-	public USBDriveInfo(USBDriveStatus status, String driveLetter, String label, String name, String serialNumber) {
+	public USBDriveInfo(USBDriveStatus status, String mountPoint, String label, String name, String serialNumber) {
 		this.status = status;
-		this.driveLetter = driveLetter;
+		this.mountPoint = mountPoint;
 		this.label = label;
 		this.name = name;
 		this.serialNumber = serialNumber;
@@ -55,12 +55,12 @@ public class USBDriveInfo {
 	}
 
 	/**
-	 * Returns drive letter.
+	 * Returns the mount point / drive letter.
 	 * 
-	 * @return drive letter
+	 * @return mount point / drive letter
 	 */
-	public String getDriveLetter() {
-		return driveLetter;
+	public String getMountPoint() {
+		return mountPoint;
 	}
 
 	/**
@@ -92,8 +92,8 @@ public class USBDriveInfo {
 
 	@Override
 	public String toString() {
-		return "USBDriveInfo [status=" + status + ", driveLetter="
-				+ driveLetter + ", label=" + label + ", name=" + name
+		return "USBDriveInfo [status=" + status + ", mountPoint="
+				+ mountPoint + ", label=" + label + ", name=" + name
 				+ ", serialNumber=" + serialNumber + "]";
 	}
 
