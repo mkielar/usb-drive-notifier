@@ -7,7 +7,7 @@ Unregister $C_DELETION_EVENT_SI
 
 # Pretend, that the drives "just appeared" and output them first.
 ## We do it before registering Event-Listeners, so they do not catch that
-$MessageData = $(Create-MessageData $C_CREATION_STATUS)
+WriteInfoAll $(Create-MessageData $C_CREATION_STATUS)
 
 # Register Event-Listeners for creation / deletion events
 Register $C_CREATION_EVENT_SI $C_CREATION_QUERY $C_CREATION_STATUS
