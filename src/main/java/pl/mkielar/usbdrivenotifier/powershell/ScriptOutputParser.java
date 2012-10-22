@@ -156,7 +156,6 @@ public class ScriptOutputParser {
 		while (scanner.hasNextLine()) {
 			
 			String startLine = scanner.nextLine();
-			System.out.println("Start line: " + startLine);
 			
 			if ("INFO-START".equals(startLine)) {
 				
