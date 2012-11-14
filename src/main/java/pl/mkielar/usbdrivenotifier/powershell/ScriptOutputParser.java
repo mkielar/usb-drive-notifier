@@ -19,10 +19,13 @@ import pl.mkielar.usbdrivenotifier.model.USBDriveStatus;
  * {@code
  * INFO-START
  *   STATUS       : CREATION
- *   DRIVE        : G:
- *   LABEL        : KINGSTON
+ *   DEVICEID     : USB\VID_0951&PID_1607\000AEBFEF59CB990564C002A
+ *   VENDORID     : 0951
+ *   PRODUCTID    : 1607
+ *   SERIALNUMBER : 000AEBFEF59CB990564C002A
  *   NAME         : Kingston DataTraveler 2.0 USB Device
- *   SERIALNUMBER : 7F9FF92B
+ *   MOUNTPOINT   : G:
+ *   LABEL        : KINGSTON
  * INFO-STOP
  * }
  * </pre>
@@ -159,15 +162,18 @@ public class ScriptOutputParser {
 			
 			if ("INFO-START".equals(startLine)) {
 				
-				String status = parse("^  STATUS       : (.*)$", scanner.nextLine());
-				String driveLetter = parse("^  DRIVE        : (.*)$", scanner.nextLine());
-				String label = parse("^  LABEL        : (.*)$", scanner.nextLine());
-			    String name = parse("^  NAME         : (.*)$", scanner.nextLine());
+				String status =       parse("^  STATUS       : (.*)$", scanner.nextLine());
+				String deviceId =     parse("^  DEVICEID     : (.*)$", scanner.nextLine());
+				String vendorId =     parse("^  VENDORID     : (.*)$", scanner.nextLine());
+				String productId =    parse("^  PRODUCTID    : (.*)$", scanner.nextLine());
 				String serialNumber = parse("^  SERIALNUMBER : (.*)$", scanner.nextLine());
+				String name =         parse("^  NAME         : (.*)$", scanner.nextLine());
+				String driveLetter =  parse("^  MOUNTPOINT   : (.*)$", scanner.nextLine());
+				String label =        parse("^  LABEL        : (.*)$", scanner.nextLine());
 				
 				String endLine = scanner.nextLine();
 				if ("INFO-STOP".equals(endLine)) {
-					return new USBDriveInfo(USBDriveStatus.valueOf(status), driveLetter, label, name, serialNumber);
+					return new USBDriveInfo(USBDriveStatus.valueOf(status), deviceId, vendorId, productId, serialNumber, name, driveLetter, label);
 				}
 			}
 		}

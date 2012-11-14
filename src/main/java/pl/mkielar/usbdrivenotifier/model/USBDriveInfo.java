@@ -11,38 +11,56 @@ public class USBDriveInfo {
 	/** Drive status. */
 	private final USBDriveStatus status;
 	
+	/** Device ID. */
+	private final String deviceId;
+	
+	/** Drive Vendor ID. */
+	private final String vendorId;
+	
+	/** Drive Product ID. */
+	private final String productId;
+
+	/** Drive serial number. */
+	private final String serialNumber;
+	
+	/** Drive name as returned by the driver. */
+	private final String name;
+	
 	/** Mount point / drive letter. */
 	private final String mountPoint;
 	
 	/** Drive label. */
 	private final String label;
 	
-	/** Drive name as returned by the driver. */
-	private final String name;
-	
-	/** Drive serial number. */
-	private final String serialNumber;
-	
 	/**
 	 * Constructor.
 	 * 
 	 * @param status
 	 *            drive status
+	 * @param deviceId
+	 *            drive device id
+	 * @param vendorId
+	 *            drive vendor id
+	 * @param product
+	 *            id drive product id
+	 * @param serialNumber
+	 *            drive serial number
+	 * @param name
+	 *            drive name as returned by the driver
 	 * @param mountPoint
 	 *            mount point / drive letter
 	 * @param label
 	 *            drive label
-	 * @param name
-	 *            drive name as returned by the driver
-	 * @param serialNumber
-	 *            drive serial number
 	 */
-	public USBDriveInfo(USBDriveStatus status, String mountPoint, String label, String name, String serialNumber) {
+	public USBDriveInfo(USBDriveStatus status, String deviceId, String vendorId, String productId, String serialNumber, String name, String mountPoint, String label) {
 		this.status = status;
+		this.deviceId = deviceId;
+		this.vendorId = vendorId;
+		this.productId = productId;
+		this.serialNumber = serialNumber;
+		this.name = name;
 		this.mountPoint = mountPoint;
 		this.label = label;
-		this.name = name;
-		this.serialNumber = serialNumber;
 	}
 
 	/**
@@ -54,6 +72,51 @@ public class USBDriveInfo {
 		return status;
 	}
 
+	/**
+	 * Redurns drive deviceId.
+	 * 
+	 * @return reviceId
+	 */
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	/**
+	 * Returns drive vendorId.
+	 * 
+	 * @return vendorId
+	 */
+	public String getVendorId() {
+		return vendorId;
+	}
+
+	/**
+	 * Returns drive productId.
+	 * 
+	 * @return productId
+	 */
+	public String getProductId() {
+		return productId;
+	}
+
+	/**
+	 * Returns drive serial number.
+	 * 
+	 * @return drive serial number
+	 */
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	/**
+	 * Returns drive name (as returned by the driver).
+	 * 
+	 * @return drive name
+	 */
+	public String getName() {
+		return name;
+	}
+	
 	/**
 	 * Returns the mount point / drive letter.
 	 * 
@@ -72,29 +135,13 @@ public class USBDriveInfo {
 		return label;
 	}
 
-	/**
-	 * Returns drive name (as returned by the driver)
-	 * 
-	 * @return drive name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Returns drive serial number.
-	 * 
-	 * @return drive serial number
-	 */
-	public String getSerialNumber() {
-		return serialNumber;
-	}
-
 	@Override
 	public String toString() {
-		return "USBDriveInfo [status=" + status + ", mountPoint="
-				+ mountPoint + ", label=" + label + ", name=" + name
-				+ ", serialNumber=" + serialNumber + "]";
+		return "USBDriveInfo [status=" + status + ", deviceId=" + deviceId
+				+ ", vendorId=" + vendorId + ", productId=" + productId
+				+ ", serialNumber=" + serialNumber + ", name=" + name
+				+ ", mountPoint=" + mountPoint + ", label=" + label + "]";
 	}
+
 
 }
