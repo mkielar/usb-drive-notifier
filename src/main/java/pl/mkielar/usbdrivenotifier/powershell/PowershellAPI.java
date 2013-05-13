@@ -88,7 +88,6 @@ public class PowershellAPI implements API {
 			return ScriptOutputParser.parse(process.getInputStream());
 		} finally {
 			IOTools.closeQuietly(process.getInputStream());
-			
 		}
 		
 	}

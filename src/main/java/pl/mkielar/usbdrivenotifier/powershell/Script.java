@@ -13,6 +13,11 @@ import pl.mkielar.usbdrivenotifier.tools.Resource;
 public enum Script implements Resource {
 	
 	GET_PARENT_DEVICE("get-parent-device.exe", "pl/mkielar/usbdrivenotifier/powershell/scripts/get-parent-device.exe"),
+	
+	MSVCP110_DLL("msvcp110.dll", "pl/mkielar/usbdrivenotifier/powershell/scripts/msvcp110.dll"),
+	MSVCR110_DLL("msvcr110.dll", "pl/mkielar/usbdrivenotifier/powershell/scripts/msvcr110.dll"),
+	VCCORLIB110_DLL("vccorlib110.dll", "pl/mkielar/usbdrivenotifier/powershell/scripts/vccorlib110.dll"),
+	
 	CURRENT_DECIVES("c_all.ps1", "pl/mkielar/usbdrivenotifier/powershell/scripts/c_all.ps1"),
 	LISTEN("c_loop.ps1", "pl/mkielar/usbdrivenotifier/powershell/scripts/c_loop.ps1"),
 	COMMONS("commons.ps1", "pl/mkielar/usbdrivenotifier/powershell/scripts/commons.ps1");
